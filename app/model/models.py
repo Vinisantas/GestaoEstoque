@@ -1,21 +1,19 @@
-
 import sqlite3
 from app.model.database import verificar_banco
 
-# Inserção de dados na tabela
-
-def cadastrar_equipamentos():
-    status_banco = verificar_banco()
-    if status_banco ["status"] == "sucesso":
-                #defina o caminho do db 
+# Inserção de dados na tabela equipamentos
+def cadastrar_equipamentos(dados):
+        try:    
                 conn = sqlite3.connect("cadastro_patrimonio.sqlite")
                 cursor = conn.cursor()
-                cadastro = cursor.execute('''
+                cursor.execute('''
                         INSERT INTO equipamentos ( patrimonio, nome, descricao, localizacao, data_de_compra)
                         VALUES (?, ?, ?, ?, ?)
-                        ''', (patrimonio, nome, descricao, localizacao, data_de_compra))
-                
-                # Commit e fechamento da conexão
+                        ''', (dados["patrimonio"], dados["nome"], dados["descricao"], dados["localizacao"], dados["data_de_compra"]))
                 conn.commit()
                 conn.close()
-    return cadastro
+                return {"status": "sucesso", "mensagem": "Equipamento cadastrado com sucesso!"}
+        
+        except sqlite3.Error as e:
+
+                return {"status": "erro", "mensagem": str(e)}

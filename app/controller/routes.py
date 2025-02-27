@@ -65,33 +65,23 @@ def get_patrimonio():
 
 @app.route('/equipamentos', methods=['POST'])
 def post_equipamentos():
-        status_banco = verificar_banco()
-        if status_banco ["status"] == "sucesso":
-                #defina o caminho do db 
-                conn = sqlite3.connect("cadastro_patrimonio.sqlite")
-                cursor = conn.cursor()
-
-                # Capturar os dados da requisição (no caso, JSON)
-                dados = request.get_json()
-                patrimonio = dados.get('patrimonio')
-                nome = dados.get('nome')
-                descricao = dados.get('descricao')
-                localizacao = dados.get('localizacao')
-                data_de_compra = dados.get('data_de_compra')
-
-                if patrimonio == ""  or nome == "" or descricao == "" or localizacao == "" or data_de_compra:
-                        return make_response(
-                                jsonify(mensagem=f"Insira dados válidos!"),201
-                        )
-                
-                cadastrar_equipamentos()
+        dados = request.get_json()
+        if not all(key in dados for key in ['patrimonio', 'nome', 'descricao', 'localizacao', 'data_de_compra']):
                 return make_response(
-                jsonify(mensagem=f"Equipamento {nome} patrimônio {patrimonio} inserido com sucesso!"),201
+                jsonify(mensagem="Dados inválidos ou incompletos."), 400
                 )
+        status_banco = verificar_banco()
+        if status_banco["status"] == "sucesso":
+                resultado = cadastrar_equipamentos(dados)
+                if resultado["status"] == "sucesso":
+                        return make_response(jsonify(mensagem=resultado["mensagem"]), 201)
+                else:
+                        return make_response(jsonify(mensagem=resultado["mensagem"]), 500)
         else:
                 return make_response(
-                jsonify(mensagem="Erro ao conectar ao banco de dados."),500
+                jsonify(mensagem="Erro ao conectar ao banco de dados."), 500
                 )
+
 
 
 
