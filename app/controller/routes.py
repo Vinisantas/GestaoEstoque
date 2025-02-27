@@ -2,7 +2,7 @@
 
 import sqlite3
 from flask import jsonify, make_response, request
-from app.database import verificar_banco
+from app.model.database import verificar_banco
 from app import app
 from app.model.models import cadastrar_equipamentos
 

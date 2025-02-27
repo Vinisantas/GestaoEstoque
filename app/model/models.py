@@ -1,6 +1,6 @@
 
 import sqlite3
-from app.database import verificar_banco
+from app.model.database import verificar_banco
 
 # Inserção de dados na tabela
 

@@ -5,4 +5,4 @@ from flask import Flask
 app = Flask(__name__)
 
 # Importar rotas para evitar importações circulares
-from app import routes
+from app.controller import routes

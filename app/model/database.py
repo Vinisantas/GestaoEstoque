@@ -3,7 +3,7 @@ import sqlite3
 from pathlib import Path
 
 # Caminho do banco de dados
-caminho = 'cadastro_patrimonio.sqlite'
+caminho = "data/cadastro_patrimonio.sqlite"
 
 def verificar_banco():
     """Verifica se o banco de dados existe e tenta conectar."""
