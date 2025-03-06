@@ -11,7 +11,7 @@ from app.model.Equipamentos_db import cadastrar_equipamentos
 def get_equipamentos():
                 status_banco = verificar_banco()
                 if status_banco ["status"] == "sucesso":
-                        conn = sqlite3.connect("data/Equipamentos.sqlite")
+                        conn = sqlite3.connect("data/equipamentos.sqlite")
                         cursor = conn.cursor()
                         #listar todos os equipamentos
                         lista = cursor.execute(''' SELECT * FROM  equipamentos ''').fetchall()
@@ -33,7 +33,7 @@ def get_patrimonio(patrimonio):
         status_banco = verificar_banco()
         if status_banco ["status"] == "sucesso":
                 try:
-                        conn = sqlite3.connect("data/Equipamentos.sqlite")
+                        conn = sqlite3.connect("data/equipamentos.sqlite")
                         cursor = conn.cursor()
                         #listar equipamentos por patrimônio
                         equipamento_patrimonio = cursor.execute(''' SELECT *  FROM equipamentos WHERE patrimonio = ? ''', (patrimonio,)).fetchall()
@@ -82,7 +82,7 @@ def post_equipamentos():
 def delete_equipamentos(patrimonio):
         status_banco = verificar_banco()
         if status_banco ["status"] == "sucesso":
-                conn = sqlite3.connect("data/Equipamentos.sqlite")
+                conn = sqlite3.connect("data/equipamentos.sqlite")
                 cursor = conn.cursor() 
 
                 cursor.execute('''SELECT * FROM equipamentos WHERE patrimonio = ?''', (patrimonio,))

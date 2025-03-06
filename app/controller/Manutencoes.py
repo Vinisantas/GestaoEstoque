@@ -8,7 +8,7 @@ from app.model.Database import verificar_banco
 def get_equipamentos():
                 status_banco = verificar_banco()
                 if status_banco ["status"] == "sucesso":
-                        conn = sqlite3.connect("data/Equipamentos.sqlite")
+                        conn = sqlite3.connect("data/manutencoes.sqlite")
                         cursor = conn.cursor()
                         #listar todos os equipamentos
                         lista = cursor.execute(''' SELECT * FROM  manutencao ''').fetchall()
