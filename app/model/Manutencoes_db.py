@@ -2,7 +2,7 @@
 import sqlite3
 from pathlib import Path
 
-caminho = "data/movimentacoes.sqlite"
+caminho = "data/manutencoes.sqlite"
 
 def verificar_banco():
     """Verifica se o banco de dados existe e tenta conectar."""
